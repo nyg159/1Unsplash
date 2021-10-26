@@ -8,5 +8,11 @@
     "mysql2": "^2.3.2",
     "router": "^1.3.5",
     "sequelize": "^6.8.0"
-  }
+  },
+  "name": "1unsplash",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nyg159/1Unsplash.git",
+  "author": "nyg159 <nyg159@gmail.com>",
+  "license": "MIT"
 }
