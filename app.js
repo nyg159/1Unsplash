@@ -2,17 +2,16 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var userlogin = require('./users/login');
+var homepage = require('./pagemain/main');
+
 require("dotenv").config();
 
 
 var app = express();
 
 app.use('/login', userlogin);
+app.use('/', homepage);
 
-// 메인페이지
-app.get('/', (req, res) => {
-	res.send('mainpage');
-});
 
 // 찾을 수 없는 홈페이지에 접속 했을 때 호출 되는 404 미들웨어
 app.use(function(req, res, next) {
