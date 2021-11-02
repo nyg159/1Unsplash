@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 var secretObj = require("../jwt");
 require("dotenv").config();
+
+router.use(bodyParser.urlencoded({ extended:false })); 
+router.use(bodyParser.json());
 
 const sequelize = new Sequelize('unsplash', 'root', process.env.MYSQL_PASSWORD, {
 	host: '127.0.0.1',
@@ -72,7 +76,10 @@ sequelize
 	});
 
 // db에 사용자 데이터를 넣는다 (회원가입)
-router.post('/users', async (req, res) => {
+router.post('/createusers', async (req, res) => {
+
+	console.log("createuser page open");
+
 	const { email, password, name } = req.body;
 	const user = await User.create({
 		email, password, name,
@@ -89,10 +96,45 @@ router.post('/users', async (req, res) => {
 });
 
 router.post('/check', (req, res) => {
+
+	console.log("login page open");
+	
+
 	// 로그인 되었다고 사용자에게 알려줌
 	var reqemail = req.body.email;
 	var reqpassword = req.body.password;
 
+	/*
+	var output = `<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>로긴</title>
+	</head>
+	<body>
+	 
+		<h1>로그인</h1>
+		 <br />
+		 <form method="post">
+			 <table>
+				 <tr>
+					 <td><label>아이디</label></td>
+					 <td><input type="text" name="email"></td>
+				 </tr>
+				 <tr>
+					 <td><label>비번</label></td>
+					 <td><input type="text" name="password"></td>
+				 </tr>
+			 </table>
+			 <td><input type="submit" value="전송" name=""></td>
+		 </form>
+	 
+	</body>
+	</html>
+	`
+	res.send(output); 
+	*/
+	
 	User.findOne({
 		where : {
 			email : reqemail,
@@ -129,8 +171,7 @@ router.post('/check', (req, res) => {
 					console.log("로그인 성공 email: " + reqemail);
 					var data = {success:true, msg: ' 로그인 되었습니다. '};
 					res.status(200).json({
-						data,
-						token: token
+						
 					}); 
 			}
 	})

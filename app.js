@@ -9,7 +9,7 @@ require("dotenv").config();
 
 var app = express();
 
-app.use('/login', userlogin);
+app.use('/userlogin', userlogin);
 app.use('/', homepage);
 
 
