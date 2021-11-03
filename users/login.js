@@ -104,37 +104,7 @@ router.post('/check', (req, res) => {
 	var reqemail = req.body.email;
 	var reqpassword = req.body.password;
 
-	/*
-	var output = `<!DOCTYPE html>
-	<html>
-	<head>
-		<meta charset="utf-8" />
-		<title>로긴</title>
-	</head>
-	<body>
-	 
-		<h1>로그인</h1>
-		 <br />
-		 <form method="post">
-			 <table>
-				 <tr>
-					 <td><label>아이디</label></td>
-					 <td><input type="text" name="email"></td>
-				 </tr>
-				 <tr>
-					 <td><label>비번</label></td>
-					 <td><input type="text" name="password"></td>
-				 </tr>
-			 </table>
-			 <td><input type="submit" value="전송" name=""></td>
-		 </form>
-	 
-	</body>
-	</html>
-	`
-	res.send(output); 
-	*/
-	
+
 	User.findOne({
 		where : {
 			email : reqemail,
@@ -213,4 +183,8 @@ router.post('/userdelete/:email', (req, res) => {
 	})
 });
 
-module.exports = router;
+router.get('/check', function(req, res){
+	res.sendFile(__dirname + "/loginpage.html");
+});
+
+module.exports = router
