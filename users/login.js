@@ -98,12 +98,10 @@ router.post('/createusers', async (req, res) => {
 router.post('/check', (req, res) => {
 
 	console.log("login page open");
-	
 
 	// 로그인 되었다고 사용자에게 알려줌
 	var reqemail = req.body.email;
 	var reqpassword = req.body.password;
-
 
 	User.findOne({
 		where : {
@@ -141,7 +139,8 @@ router.post('/check', (req, res) => {
 					console.log("로그인 성공 email: " + reqemail);
 					var data = {success:true, msg: ' 로그인 되었습니다. '};
 					res.status(200).json({
-						
+						data,
+						token: token
 					}); 
 			}
 	})
