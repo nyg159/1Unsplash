@@ -9,6 +9,9 @@ require("dotenv").config();
 router.use(bodyParser.urlencoded({ extended:false })); 
 router.use(bodyParser.json());
 
+
+
+
 const sequelize = new Sequelize('unsplash', 'root', process.env.MYSQL_PASSWORD, {
 	host: '127.0.0.1',
 	dialect: 'mysql',
@@ -112,21 +115,13 @@ router.post('/check', (req, res) => {
 	}).then(function(data)
 	{
 		if( data == null || data == undefined ) {
-			console.log("로그인 이메일이 없습니다. email : "+ reqemail );
+			console.log("아이디 또는 비밀번호가 잘못 입력 되었습니다.");
 			res.status(412) ;
-			var data = { success: false, msg: '로그인 정보가 정확하지 않습니다.'};
+			var data = { success: false, msg: '아이디 또는 비밀번호가 잘못 입력 되었습니다.'};
 
 			res.json(data);
 			
-		}
-		if(data.password != reqpassword ) {
-			console.log("로그인 암호가 틀립니다. email: " + reqemail );
-			res.status(412);
-			var data = {success:false, msg: '로그인 정보가 정확하지 않습니다.'};
-
-			res.json(data);
-
-			}else{
+		}else{
 				let token = jwt.sign({
 					email: reqemail,    //토큰내용
 					password: reqpassword 
