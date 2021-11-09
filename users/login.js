@@ -179,6 +179,7 @@ router.post('/userdelete/:email', (req, res) => {
 
 router.get('/check', function(req, res){
 	res.sendFile(__dirname + "/loginpage.html");
+	console.log('login page opening!');
 });
 
 module.exports = router
